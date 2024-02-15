@@ -1,0 +1,48 @@
+import pygame
+import os
+
+# Initialize Pygame
+pygame.init()
+
+# Set screen dimensions
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Moving Item with Horizontal Collision")
+
+# Load image
+item_image = pygame.image.load("C:/Users/Marti/Downloads/Minecraft fish 2.png")
+item_rect = item_image.get_rect()
+item_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
+# Set movement variables
+move_x = 5
+
+# Ocean blue color
+OCEAN_BLUE = (65, 105, 225)
+
+# Main loop
+running = True
+clock = pygame.time.Clock()
+
+while running:
+    screen.fill(OCEAN_BLUE)  # Set background color
+
+    # Check for events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Move the item horizontally
+    item_rect.x += move_x
+
+    # Check for collision with screen edges
+    if item_rect.left < 0 or item_rect.right > SCREEN_WIDTH:
+        move_x *= -1
+
+    # Draw the item
+    screen.blit(item_image, item_rect)
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
